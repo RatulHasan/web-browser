@@ -16,6 +16,9 @@ class AddressBar(QLineEdit):
     def mousePressEvent(self, QMouseEvent):
         self.selectAll()
 
+    # def mouseDoubleClickEvent(self, QMouseEvent):
+    #     self.selectAll()
+
 
 class App(QFrame):
     def __init__(self):
@@ -23,10 +26,13 @@ class App(QFrame):
         self.setWindowTitle("Web Browser")
 
         self.create_app()
-        self.setBaseSize(1366, 768)
+        # self.setBaseSize(1366, 768)
+        self.setMinimumSize(1366, 768)
 
     def create_app(self):
         self.layout = QVBoxLayout()
+        self.layout.setSpacing(0)
+        self.layout.setContentsMargins(0, 0, 0, 0)
 
         # Create Tabs
         self.tabbar = QTabBar(movable = True, tabsClosable = True)
@@ -51,8 +57,14 @@ class App(QFrame):
         self.ToolbarLayout.addWidget(self.addressbar)
         # End AddressBar
 
+        # Set Main View
+        self.container = QWidget()
+        self.container.layout =  QStackedLayout()
+        self.container.setLayout(self.container.layout)
+
         self.layout.addWidget(self.tabbar)
         self.layout.addWidget(self.Toolbar)
+        self.layout.addWidget(self.container)
         self.setLayout(self.layout)
 
         self.show()
